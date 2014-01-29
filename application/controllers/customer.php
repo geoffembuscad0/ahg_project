@@ -115,7 +115,7 @@ class Customer extends CI_Controller {
         $data['cutomize_link'] = site_url('customer/customize');
         $data['products'] = $this->catalog->getProducts($uri_segments);
         $data['product_categories'] = $this->catalog->getProductCategories();
-        debug_result($this->catalog->getProducts($uri_segments));
+//        debug_result($this->catalog->getProducts($uri_segments));
 	$data['footer'] = $this->layout->footer();
         $this->load->view('catalog/shop', $data);
     }

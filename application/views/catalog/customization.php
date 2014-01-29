@@ -80,7 +80,7 @@
         <div style="width:100%">
             <h2>Features:</h2>
         </div>
-        <div style="width:100%">
+        <div style="">
             <ul id="gallery" class="inline-list">
             <?php foreach($product_custom_features AS $features){ ?>
             <li>
@@ -93,8 +93,6 @@
                 <?php echo form_hidden($features['part_name'], $features['feature_no']); ?>
             </li>
             <?php } ?>
-            <!-- <li><img class="custom-option" src="http://farm9.staticflickr.com/8026/7107052047_e87515a60d.jpg"/></li> -->
-            <!-- <img class="custom-option" src="http://farm9.staticflickr.com/8026/7107052047_e87515a60d.jpg"/> -->
             </ul>
         </div>
     </div>

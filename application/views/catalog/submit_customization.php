@@ -2,7 +2,7 @@
     <div class="large-12"><h2>You're purchasing this</h2></div>
 </div>
 <div class="row">
-    <div class="large-12 columns">        
+    <div class="large-6 columns">
         <ul class="pricing-table">
             <li class="title"><?php echo $product_info[0]['name']; ?></li>
             <li class="bullet-item">Product Additional Features</li>
@@ -25,9 +25,7 @@
             
         </ul>
     </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
+    <div class="large-6 columns">
             <fieldset>
                 <legend>Your Contact Email</legend>
                 <?php echo form_input('email_contact') ;?>
