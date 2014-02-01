@@ -70,7 +70,9 @@
 </div>
 <div class="row">
     <div class="large-6 columns">
-        <h3>Preview<!--<a href="#saveImg" class="button" onclick="saveImg()" style="float:right;">Convert To Image</a>--></h3>
+        <h3>Preview
+            <button id="clearCustomization" class="button" style="float:right;">Cancel</button>
+        </h3>
         <div style="width:100%;height: 480px;">
             <canvas id="theCob" width="480" height="480"></canvas>
         </div>
@@ -80,27 +82,35 @@
         <div style="width:100%">
             <h2>Features:</h2>
         </div>
-        <div style="">
-            <ul id="gallery" class="inline-list">
-            <?php foreach($product_custom_features AS $features){ ?>
-            <li>
-                <a class="draggable" href="#">
-                    <img src="<?php echo site_url("assets/imgs/custom_avail/" . $features['img_file']); ?>"/>
-                </a></br>
-                <span class="label">
-                    <h5 class='white-txt'><?php echo $features['feature']; ?></h5>
-                </span>
-                <?php echo form_hidden($features['part_name'], $features['feature_no']); ?>
-            </li>
-            <?php } ?>
-            </ul>
-        </div>
+        <ul id="gallery" class="inline-list">
+        <?php foreach($product_custom_features AS $features){ ?>
+        <li>
+            <a class="draggable" href="#">
+                <img src="<?php echo site_url("assets/imgs/custom_avail/" . $features['img_file']); ?>"/>
+            </a></br>
+            <span class="label">
+                <h5 class='white-txt'><?php echo $features['feature']; ?></h5>
+            </span>
+            <?php echo form_hidden($features['part_name'], $features['feature_no']); ?>
+        </li>
+        <?php } ?>
+        </ul>
     </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
         var selectedcolor;
         var selectedsize;
+        
+        function clearCanvas(){
+            var canvas = document.getElementById('theCob');
+            var context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            $(".draggable").css({
+		"left": $(".draggable").data('originalLeft'),
+		"top": $(".draggable").data('origionalTop')
+            });
+        }
         
         function saveImg(){
             var oCanvas = document.getElementById("theCob"); 
@@ -153,6 +163,10 @@
             $.post('<?php echo site_url('customer/submitCustomOrder');?>', $('#form').serialize(), function(data){
                 $("#customizationInput").html(data);
             });
+        });
+        
+        $("#clearCustomization").on('click', function(){
+            clearCanvas();
         });
     });
 </script>

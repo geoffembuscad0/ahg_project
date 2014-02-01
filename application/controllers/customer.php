@@ -193,19 +193,19 @@ class Customer extends CI_Controller {
         $data['product_available_colors'] = $this->catalog->getAvailableProductColors($uri_segments['product_no']);
         $data['product_custom_features'] = $this->catalog->getProductCustomFeatures($uri_segments['product_no']);
         $data['footer'] = $this->layout->footer();
-//        echo "<pre>";print_r($data['product_info']);die();
+
         $this->load->view('catalog/customization', $data);
     }
+
     public function submitCustomOrder(){
         $curr_customer = array();
         $curr_customer['product_no'] = $this->input->post('product_no');
+        $curr_customer['product_color'] = $this->input->post('product_color');
         $curr_customer['customer_ip'] = $this->input->ip_address();
         $curr_customer['animal_ear'] = $this->input->post('ears');
         $curr_customer['sp_features'] = $this->input->post('accessories');
         $curr_customer['sp_features'][] = $this->input->post('ears');
-        
 //        debug_result($curr_customer);
-        
         $this->session->set_userdata(array('customer_curr'=>$curr_customer));
         $current_customer = $this->session->userdata('customer_curr');
 
@@ -286,6 +286,7 @@ class Customer extends CI_Controller {
         if($errorMsg){
             error_message($errorMsg);
         } else {
+            debug_result($fetch_inputs);
             success_message("Nice! Your order is now processing.");
             $this->catalog->saveOrder($fetch_inputs,$this->session->userdata('customer_curr'));
         }

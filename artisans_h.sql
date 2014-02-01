@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2014 at 09:09 AM
+-- Generation Time: Feb 01, 2014 at 04:32 PM
 -- Server version: 5.6.11
 -- PHP Version: 5.5.1
 
@@ -221,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `product_custom_feature` (
   `feature_price` decimal(8,2) DEFAULT NULL,
   `part` int(11) DEFAULT NULL,
   PRIMARY KEY (`feature_no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `product_custom_feature`
@@ -230,9 +230,10 @@ CREATE TABLE IF NOT EXISTS `product_custom_feature` (
 INSERT INTO `product_custom_feature` (`feature_no`, `feature`, `product_no`, `img_file`, `feature_price`, `part`) VALUES
 (00001, 'Cat Ears', 00001, 'cat_ears.png', '0.00', 1),
 (00002, 'Rabbit Ears', 00001, 'rabbit_ears.png', '0.00', 1),
-(00003, 'w/ LED', 00001, '', '50.00', 2),
+(00003, 'w/ LED', 00001, 'LED_lights.png', '50.00', 2),
 (00004, 'w/ Ribbon', 00001, 'ribbon.png', '0.00', 2),
-(00005, 'Dog Ears', 00001, 'dog_ears.png', '0.00', 1);
+(00005, 'Dog Ears', 00001, 'dog_ears.png', '0.00', 1),
+(00006, 'Cap', 00001, 'cap.png', '0.00', 3);
 
 -- --------------------------------------------------------
 
@@ -282,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `product_part` (
   `part` int(11) NOT NULL AUTO_INCREMENT,
   `part_name` varchar(75) DEFAULT NULL,
   PRIMARY KEY (`part`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `product_part`
@@ -290,7 +291,8 @@ CREATE TABLE IF NOT EXISTS `product_part` (
 
 INSERT INTO `product_part` (`part`, `part_name`) VALUES
 (1, 'ears'),
-(2, 'accessories[]');
+(2, 'accessories[]'),
+(3, 'cap');
 
 -- --------------------------------------------------------
 

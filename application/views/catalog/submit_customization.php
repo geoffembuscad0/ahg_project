@@ -39,31 +39,46 @@
             <label>Lastname:</label>
             <?php echo form_input('lastname');?>
             <label>Contact No.:</label>
-            <?php echo form_input('phone_contact'); ?>
+            <?php echo form_input(array('name'=>'phone_contact','maxlength'=>'11')); ?>
+            <div id="confirmOrderAlert" data-alert class="alert-box info radius">
+                <p>Are your sure you want to submit your order?</p>
+                <ul class="button-group">
+                    <li><a id="confirmOrderYes" href="#" class="button">Yes</a></li>
+                </ul>
+                <a href="#" class="close">&times;</a>
+            </div>
             <input type="button" name="continue" class="button" value="Order"/>or go back to <a style="color:red;" href="<?php echo site_url('customer/shop');?>">store</a>.
-            <div class="messager"></div>
         </fieldset>
     </div>
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
+    
+    $("#confirmOrderAlert").hide();
+    
     $("input[name='continue']").click(function(){
-        $.ajax({
-            url: '<?php echo site_url('customer/validateBuyConfirmation'); ?>',
-            type: 'POST',
-            data: {
-                idNo: $("input[name='id_no']").val(),
-                firstname:$("input[name='firstname']").val(),
-                lastname:$("input[name='lastname']").val(),
-                phone: $("input[name='phone_contact']").val(),
-                email: $("input[name='email_contact']").val(),
-                totalPrice: '<?php echo $total_price; ?>'
-            },
-            success: function(responseBuy){
-                $(".messager").html(responseBuy);
-            }
-            // Pass by via AJAX on continuation  1/20/2014
+                
+        $("#confirmOrderAlert").show();
+        
+        $("#confirmOrderYes").on('click', function(){
+            $.ajax({
+                url: '<?php echo site_url('customer/validateBuyConfirmation'); ?>',
+                type: 'POST',
+                data: {
+                    idNo: $("input[name='id_no']").val(),
+                    firstname:$("input[name='firstname']").val(),
+                    lastname:$("input[name='lastname']").val(),
+                    phone: $("input[name='phone_contact']").val(),
+                    email: $("input[name='email_contact']").val(),
+                    totalPrice: '<?php echo $total_price; ?>'
+                },
+                success: function(responseBuy){
+                    $(".messager").html(responseBuy);
+                }
+                // Pass by via AJAX on continuation  1/20/2014
+            });
         });
+        
     });
 });
 </script>
