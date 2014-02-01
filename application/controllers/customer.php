@@ -192,6 +192,7 @@ class Customer extends CI_Controller {
         $data['product_available_sizes'] = array(array("size"=>"s","name"=>"Small"),array("size"=>"m","name"=>"Medium"),array("size"=>"l","name"=>"Large"));
         $data['product_available_colors'] = $this->catalog->getAvailableProductColors($uri_segments['product_no']);
         $data['product_custom_features'] = $this->catalog->getProductCustomFeatures($uri_segments['product_no']);
+//        debug_result($this->catalog->getProductCustomFeatures($uri_segments['product_no']));
         $data['footer'] = $this->layout->footer();
 
         $this->load->view('catalog/customization', $data);
@@ -204,7 +205,7 @@ class Customer extends CI_Controller {
         $curr_customer['customer_ip'] = $this->input->ip_address();
         $curr_customer['animal_ear'] = $this->input->post('ears');
         $curr_customer['sp_features'] = $this->input->post('accessories');
-        $curr_customer['sp_features'][] = $this->input->post('ears');
+
 //        debug_result($curr_customer);
         $this->session->set_userdata(array('customer_curr'=>$curr_customer));
         $current_customer = $this->session->userdata('customer_curr');
@@ -219,6 +220,7 @@ class Customer extends CI_Controller {
         $data['product_info'] = $this->catalog->getProduct($current_customer['product_no']);
 
         $data['product_features'] = $this->catalog->getFeatures($current_customer['sp_features']);
+        debug_result($data['product_features']);
         $data['total_price'] = $this->catalog->getTotalPrice(
                 $this->catalog->getProduct($current_customer['product_no']),
                 $this->catalog->getFeatures($current_customer['sp_features'])
