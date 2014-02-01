@@ -102,6 +102,7 @@
 $(document).ready(function(){
     var selectedcolor;
     var selectedsize;
+    var piecesFeatures =  '';
     function clearCanvas(){
         var canvas = document.getElementById('theCob');
         var context = canvas.getContext('2d');
@@ -156,9 +157,12 @@ $(document).ready(function(){
     // makes items draggable important
     $(".draggable").draggable();
 
-    // gets value of embed core [IMPORTANTE]
+    // gets value of embed core [IMPORTANTE] Logic Error
     $(".draggable").click(function(){
+        piecesFeatures += $(".draggable .feature_product").val();
+    
         alert($(".draggable .feature_product").val());
+//        alert($(".draggable .feature_product").val());
     });
     
     $("#submitCustomization").on('click', function(){
