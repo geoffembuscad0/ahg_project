@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2014 at 04:32 PM
+-- Generation Time: Feb 01, 2014 at 09:21 PM
 -- Server version: 5.6.11
 -- PHP Version: 5.5.1
 
@@ -233,7 +233,7 @@ INSERT INTO `product_custom_feature` (`feature_no`, `feature`, `product_no`, `im
 (00003, 'w/ LED', 00001, 'LED_lights.png', '50.00', 2),
 (00004, 'w/ Ribbon', 00001, 'ribbon.png', '0.00', 2),
 (00005, 'Dog Ears', 00001, 'dog_ears.png', '0.00', 1),
-(00006, 'Cap', 00001, 'cap.png', '0.00', 3);
+(00006, 'Cap', 00001, 'cap.png', '0.00', 2);
 
 -- --------------------------------------------------------
 
