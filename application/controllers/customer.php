@@ -197,17 +197,22 @@ class Customer extends CI_Controller {
 
         $this->load->view('catalog/customization', $data);
     }
-
     public function submitCustomOrder(){
+        
         $curr_customer = array();
         $curr_customer['product_no'] = $this->input->post('product_no');
         $curr_customer['product_color'] = $this->input->post('product_color');
+        $curr_customer['product_size'] = $this->input->post('product_size');
         $curr_customer['customer_ip'] = $this->input->ip_address();
-        $curr_customer['animal_ear'] = $this->input->post('ears');
-        $curr_customer['sp_features'] = $this->input->post('accessories');
-
-//        debug_result($curr_customer);
+        
+        
+        $curr_customer['sp_features'] = explode("/",$this->input->post('customFeatures'));
+        $curr_customer['sp_features'] = array_unique($curr_customer['sp_features']);
+        $curr_customer['sp_features'] = array_filter($curr_customer['sp_features'], 'strlen');
+        debug_result($curr_customer);
+        
         $this->session->set_userdata(array('customer_curr'=>$curr_customer));
+
         $current_customer = $this->session->userdata('customer_curr');
 
         $data = array();
@@ -218,14 +223,12 @@ class Customer extends CI_Controller {
 
         // model products interaction
         $data['product_info'] = $this->catalog->getProduct($current_customer['product_no']);
-
-        $data['product_features'] = $this->catalog->getFeatures($current_customer['sp_features']);
-        debug_result($data['product_features']);
+        $data['product_features'] = $this->catalog->getFeatures($curr_customer['sp_features']);
         $data['total_price'] = $this->catalog->getTotalPrice(
                 $this->catalog->getProduct($current_customer['product_no']),
                 $this->catalog->getFeatures($current_customer['sp_features'])
-                );
-        
+        );
+
         $data['footer'] = $this->layout->footer();
         $this->load->view('catalog/submit_customization', $data);
     }

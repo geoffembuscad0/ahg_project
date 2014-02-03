@@ -21,7 +21,6 @@ class Catalog extends CI_Model {
         foreach($product_info AS $product){
             $totalPrice += $product['price'];
         }
-        
         foreach($features AS $feature){
             $totalPrice += $feature[0]['feature_price'];
         }
@@ -40,11 +39,9 @@ class Catalog extends CI_Model {
             $sql = "SELECT * from product_custom_feature WHERE feature_no = '".$feature."'";
             $query = $this->db->query($sql);
             $result_query = $query->result_array();
-
             $results[$count] = $result_query;
             $count++;
         }
-        
         return $results;
     }
     

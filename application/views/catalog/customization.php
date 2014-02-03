@@ -1,4 +1,7 @@
 <?php echo $head; ?>
+<script>
+var piecesFeatures = '';
+</script>
     <div class="row" style="width:100%;">
         <div class="large-12 columns color-pinky center-txt"><?php echo logo(175);?>
     </div>
@@ -32,7 +35,7 @@
         <div id="customizationInput" class="large-12 columns">
         </div>
     </div>
-    <?php echo form_open(null,'id="form"'); ?>
+    <?php //echo form_open(null,'id="form"'); ?>
     <div class="row">
         <div class="large-12 columns">
             <h1 class="text-left"><?php echo $header_text;?></h1>
@@ -77,7 +80,7 @@
         <canvas id="theCob" width="480" height="480"></canvas>
         </div>
         </div>
-        <?php echo form_close(); ?>
+        <?php //echo form_close(); ?>
         <div class="large-6 columns">
             <div style="width:100%">
                 <h2>Features:</h2>
@@ -85,15 +88,25 @@
             <ul id="gallery" class="inline-list">
             <?php foreach($product_custom_features AS $features){ ?>
             <li>
-            <a class="draggable" href="#">
+            <a id="featureCore<?php echo $features['feature_no'];?>" class="draggable" href="#">
             <img src="<?php echo site_url("assets/imgs/custom_avail/" . $features['img_file']); ?>"/>
             <?php //echo form_hidden($features['part_name'], $features['feature_no']); ?>
-            <input class="feature_product" type="hidden" name="<?php echo $features['part_name'];?>" value="<?php echo $features['feature_no'];?>"/>
+            <input id="feature<?php echo $features['feature_no'];?>" class="feature_product" type="hidden" name="<?php echo $features['part_name'];?>" value="<?php echo $features['feature_no'];?>"/>
             </a></br>
             <span class="label">
             <h5 class='white-txt'><?php echo $features['feature']; ?></h5>
             </span>
             </li>
+            <script>
+                $(document).ready(function(){
+                    // gets value of embed core [IMPORTANTE] Logic Error
+                    
+                    $("#featureCore<?php echo $features['feature_no'];?>").hover(function(){
+                    },function(){
+                        piecesFeatures += $("#featureCore<?php echo $features['feature_no'];?> #feature<?php echo $features['feature_no'];?>").val() + "/";
+                    });
+                });
+            </script>
             <?php } ?>
             </ul>
         </div>
@@ -102,7 +115,7 @@
 $(document).ready(function(){
     var selectedcolor;
     var selectedsize;
-    var piecesFeatures =  '';
+    
     function clearCanvas(){
         var canvas = document.getElementById('theCob');
         var context = canvas.getContext('2d');
@@ -111,6 +124,7 @@ $(document).ready(function(){
             "left": $(".draggable").data('originalLeft'),
             "top": $(".draggable").data('origionalTop')
         });
+        piecesFeatures = '';
     }
     function saveImg(){
         var oCanvas = document.getElementById("theCob");
@@ -137,12 +151,12 @@ $(document).ready(function(){
     $("input:radio[name='product_size']").change(function(){
         if($(this).is(':checked')){
             if($(this).val() == 's'){
-            // cob(selectedcolor, 130);
+                selectedsize = 's';
             } else if($(this).val() == 'm'){
-            //selectedsize = 135;
+                selectedsize = 'm';
             // cob(selectedcolor, 135);
             } else if($(this).val() == 'l'){
-            //selectedsize = 140;
+                selectedsize = 'l';
             // cob(selectedcolor, 140);
             }
         }
@@ -152,23 +166,26 @@ $(document).ready(function(){
         cob($(this).val(), 140);
             selectedcolor = $(this).val();
         }
-    });
+    });    
     
     // makes items draggable important
     $(".draggable").draggable();
-
-    // gets value of embed core [IMPORTANTE] Logic Error
-    $(".draggable").click(function(){
-        piecesFeatures += $(".draggable .feature_product").val();
-    
-        alert($(".draggable .feature_product").val());
-//        alert($(".draggable .feature_product").val());
-    });
     
     $("#submitCustomization").on('click', function(){
-        $.post('<?php echo site_url('customer/submitCustomOrder');?>', $('#form').serialize(), function(data){
-            $("#customizationInput").html(data);
+        $.ajax({
+            url: '<?php echo site_url('customer/submitCustomOrder');?>',
+            type: 'POST',
+            data: {
+                customFeatures: piecesFeatures,
+                product_no: '<?php echo $product_info[0]['product_no'];?>',
+                product_size: selectedsize,
+                product_color: selectedcolor
+             },
+             success: function(repsonseFormCustomer){
+                $("#customizationInput").html(repsonseFormCustomer);
+             }
         });
+
     });
     $("#clearCustomization").on('click', function(){
         clearCanvas();
