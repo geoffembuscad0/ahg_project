@@ -14,8 +14,12 @@
                     </thead>
                     <tbody>
                         <?php foreach($product_features AS $feature){ ?>
-                        <tr><td><?php echo $feature[0]['feature'];?></td><td>₱<?php echo $feature[0]['feature_price'];?></td></tr>
-                        <?php } ?>                        
+                        <tr>
+                            <td><?php echo $feature[0]['feature'];?></td>
+                            <td>₱<?php echo $feature[0]['feature_price'];?></td>
+                            <?php echo form_hidden('features[]', $feature[0]['feature_no']);?>
+                        </tr>
+                        <?php } ?>
                     </tbody>
                     
                 </table>
@@ -47,6 +51,8 @@
                 </ul>
                 <a href="#" class="close">&times;</a>
             </div>
+            <div class="messager">
+            </div>
             <input type="button" name="continue" class="button" value="Order"/>or go back to <a style="color:red;" href="<?php echo site_url('customer/shop');?>">store</a>.
         </fieldset>
     </div>
@@ -61,6 +67,13 @@ $(document).ready(function(){
         $("#confirmOrderAlert").show();
         
         $("#confirmOrderYes").on('click', function(){
+            
+        // gets features
+        var features = '';
+        $("input[name='features[]']").each(function() {
+            features = features + '|' + $(this).val();
+        });
+
             $.ajax({
                 url: '<?php echo site_url('customer/validateBuyConfirmation'); ?>',
                 type: 'POST',
@@ -70,10 +83,13 @@ $(document).ready(function(){
                     lastname:$("input[name='lastname']").val(),
                     phone: $("input[name='phone_contact']").val(),
                     email: $("input[name='email_contact']").val(),
+                    product: '00001',
+                    features: features,
                     totalPrice: '<?php echo $total_price; ?>'
                 },
                 success: function(responseBuy){
                     $(".messager").html(responseBuy);
+
                 }
                 // Pass by via AJAX on continuation  1/20/2014
             });

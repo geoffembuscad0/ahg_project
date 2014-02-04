@@ -63,6 +63,7 @@ class Catalog extends CI_Model {
         return $query->result_array();
     }
     public function saveOrder($input_datas = array(), $session_data = array()){
+        
         $this->db->query("INSERT INTO customer_orders values(null,'".$input_datas['id']."','".$input_datas['total_price']."',now())");
         
         $select_last_record = $this->db->query("SELECT order_id FROM customer_orders ORDER BY order_id DESC LIMIT 1");
@@ -74,11 +75,13 @@ class Catalog extends CI_Model {
                 '".$input_datas['email']."','".$session_data['customer_ip']."',
                     '".$last_order_id."')");
         
-        foreach($session_data['sp_features'] AS $feature){
-            $this->db->query("INSERT INTO order_features values('".$last_order_id."','".$feature."')");
+        foreach($input_datas['features'] AS $feature){
+            if($feature != null){
+                $this->db->query("INSERT INTO order_features values('".$last_order_id."','".$feature."')");
+            }
         }
-        
-        $this->db->query("INSERT INTO order_product values('".$last_order_id."','".$session_data['product_no']."')");        
+        $this->db->query("INSERT INTO order_product values('".$last_order_id."','".$session_data['product_no']."')");
+
     }
 }
 

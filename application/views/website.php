@@ -89,14 +89,20 @@
 <div class="row">
     <div class="large-6 columns color-rose">
         <h2 class="white-txt center-txt">Head Igniter</h2>
+        <center>
         <img style="width:80%;" src="./assets/imgs/products/headigniter.jpg"/>
         <span class="success label"><h3>PHP 75.00</h3></span>
+        </center>
+        
     </div>
 
     <div class="large-6 columns color-ichigo">
         <h2 class="white-txt center-txt">Pick Of Destiny</h2>
+        <center>
         <img style="width:80%;" src="./assets/imgs/products/pickofdestiny.jpg"/>
         <span class="success label"><h3>PHP 20.00</h3></span>
+        </center>
+        
     </div>
 </div>
 

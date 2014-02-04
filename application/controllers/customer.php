@@ -209,7 +209,7 @@ class Customer extends CI_Controller {
         $curr_customer['sp_features'] = explode("/",$this->input->post('customFeatures'));
         $curr_customer['sp_features'] = array_unique($curr_customer['sp_features']);
         $curr_customer['sp_features'] = array_filter($curr_customer['sp_features'], 'strlen');
-        debug_result($curr_customer);
+//        debug_result($curr_customer);
         
         $this->session->set_userdata(array('customer_curr'=>$curr_customer));
 
@@ -228,7 +228,7 @@ class Customer extends CI_Controller {
                 $this->catalog->getProduct($current_customer['product_no']),
                 $this->catalog->getFeatures($current_customer['sp_features'])
         );
-
+//        debug_result($data['product_features']);
         $data['footer'] = $this->layout->footer();
         $this->load->view('catalog/submit_customization', $data);
     }
@@ -286,14 +286,15 @@ class Customer extends CI_Controller {
             $errorMsg .= "<b>Contact Email</b> should not be empty. ";
         }
         
+        $fetch_inputs['features'] = $this->input->post('features');
+        $fetch_inputs['features'] = explode("|", $fetch_inputs['features']);
         $fetch_inputs['total_price'] = $this->input->post('totalPrice');
         
         if($errorMsg){
             error_message($errorMsg);
         } else {
-            debug_result($fetch_inputs);
-            success_message("Nice! Your order is now processing.");
             $this->catalog->saveOrder($fetch_inputs,$this->session->userdata('customer_curr'));
+            success_message("Nice! Your order was successfully submited and is now processing.");
         }
     }
     public function getProductPreview(){

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2014 at 09:21 PM
+-- Generation Time: Feb 04, 2014 at 05:58 AM
 -- Server version: 5.6.11
 -- PHP Version: 5.5.1
 
@@ -82,14 +82,6 @@ CREATE TABLE IF NOT EXISTS `customer_information` (
   `order_id` bigint(20) unsigned zerofill DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `customer_information`
---
-
-INSERT INTO `customer_information` (`customer_id`, `firstname`, `lastname`, `contact_no`, `email`, `ip_address`, `order_id`) VALUES
-('111-234123', 'geoffrey', 'embuscado', '09898978987', 'g@yahoo.com', '127.0.0.1', 00000000000000000001),
-('11-234103', 'Geoffrey', 'Embuscado', '0920202020302', 'geoffrey@yahoo.com', '127.0.0.1', 00000000000000000002);
-
 -- --------------------------------------------------------
 
 --
@@ -102,15 +94,7 @@ CREATE TABLE IF NOT EXISTS `customer_orders` (
   `total_price` float DEFAULT NULL,
   `date_taken` datetime DEFAULT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `customer_orders`
---
-
-INSERT INTO `customer_orders` (`order_id`, `customer_id`, `total_price`, `date_taken`) VALUES
-(00000000000000000001, '111-234123', 115, '2014-01-08 18:22:18'),
-(00000000000000000002, '11-234103', 115, '2014-01-08 18:32:21');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -123,16 +107,6 @@ CREATE TABLE IF NOT EXISTS `order_features` (
   `feature_no` smallint(5) unsigned zerofill DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `order_features`
---
-
-INSERT INTO `order_features` (`order_id`, `feature_no`) VALUES
-(00000000000000000001, 00002),
-(00000000000000000001, 00003),
-(00000000000000000002, 00001),
-(00000000000000000002, 00003);
-
 -- --------------------------------------------------------
 
 --
@@ -143,14 +117,6 @@ CREATE TABLE IF NOT EXISTS `order_product` (
   `order_id` bigint(20) unsigned zerofill DEFAULT NULL,
   `product_no` smallint(5) unsigned zerofill DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `order_product`
---
-
-INSERT INTO `order_product` (`order_id`, `product_no`) VALUES
-(00000000000000000001, 00001),
-(00000000000000000002, 00001);
 
 -- --------------------------------------------------------
 
