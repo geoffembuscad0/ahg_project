@@ -14,6 +14,7 @@ function js_files(){
         'css/foundationFive/js/modernizr'
         ,'js/base64'
         ,'js/canvas2image'
+        ,'js/html2canvas/html2canvas'
         ,'js/jquery'
         ,'js/jquery-ui/js/jquery-ui-1.10.3.custom'
     );
