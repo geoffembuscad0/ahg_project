@@ -1,26 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.0.4.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Feb 04, 2014 at 05:58 AM
--- Server version: 5.6.11
--- PHP Version: 5.5.1
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `artisans_h`
---
-CREATE DATABASE IF NOT EXISTS `artisans_h` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `artisans_h`;
 
 -- --------------------------------------------------------
 
@@ -311,7 +288,3 @@ CREATE TABLE IF NOT EXISTS `user_level` (
 INSERT INTO `user_level` (`usr_lvl`, `label`) VALUES
 (1, 'Admin'),
 (2, 'Customer');
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

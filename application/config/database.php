@@ -50,8 +50,12 @@ $active_record = TRUE;
 
 //$db['default']['dns']='mysql:host=localhost;dbname=artisans_h';
 $db['default']['hostname'] = 'mysql:host=localhost;dbname=artisans_h';
+//$db['default']['hostname'] = 'mysql:host=sql311.byethost15.com;dbname=b15_14114180_artisans_h';
 $db['default']['username'] = 'root';
+//$db['default']['username'] = 'b15_14114180';
 $db['default']['password'] = '';
+//$db['default']['password'] = 'Rosedesendants12';
+//$db['default']['database'] = 'artisans_h';
 $db['default']['database'] = 'artisans_h';
 $db['default']['dbdriver'] = 'pdo';
 $db['default']['dbprefix'] = '';

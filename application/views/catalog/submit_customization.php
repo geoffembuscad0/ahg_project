@@ -89,12 +89,9 @@ $(document).ready(function(){
                 },
                 success: function(responseBuy){
                     $(".messager").html(responseBuy);
-
                 }
-                // Pass by via AJAX on continuation  1/20/2014
             });
         });
-        
     });
 });
 </script>

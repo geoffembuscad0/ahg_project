@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= "";
-
+//$config['base_url']	= "http://www.artisanshandygifts.byethost15.com/";
+$config['base_url'] = "";
 /*
 |--------------------------------------------------------------------------
 | Index File

@@ -297,15 +297,5 @@ class Customer extends CI_Controller {
             success_message("Nice! Your order was successfully submited and is now processing.");
         }
     }
-    public function getProductPreview(){
-        echo $this->input->post('selectedSize') . "\n";
-        echo $this->input->post('selectedColor') . "\n";
-        echo $this->input->post('selectedEar') . "\n";
-        echo $this->input->post('selectedAccs') . "\n";
-    }
 
-//    public function logout(){
-//        $this->session->sess_destroy();
-//        redirect('customer/login');
-//    }
 }

@@ -99,7 +99,7 @@
     <div class="large-6 columns color-ichigo">
         <h2 class="white-txt center-txt">Pick Of Destiny</h2>
         <center>
-        <img style="width:80%;" src="./assets/imgs/products/pickofdestiny.jpg"/>
+        <img style="width:80%;" src="./assets/imgs/products/pickofdestiny.JPG"/>
         <span class="success label"><h3>PHP 20.00</h3></span>
         </center>
         
