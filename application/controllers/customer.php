@@ -198,13 +198,11 @@ class Customer extends CI_Controller {
         $this->load->view('catalog/customization', $data);
     }
     public function submitCustomOrder(){
-        
-        $curr_customer = array();
+       $curr_customer = array();
         $curr_customer['product_no'] = $this->input->post('product_no');
         $curr_customer['product_color'] = $this->input->post('product_color');
         $curr_customer['product_size'] = $this->input->post('product_size');
         $curr_customer['customer_ip'] = $this->input->ip_address();
-        
         
         $curr_customer['sp_features'] = explode("/",$this->input->post('customFeatures'));
         $curr_customer['sp_features'] = array_unique($curr_customer['sp_features']);
