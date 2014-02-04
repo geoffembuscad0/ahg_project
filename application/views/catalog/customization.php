@@ -42,6 +42,10 @@ var piecesFeatures = '';
             <ul class="inline-list">
             <li><?php echo form_button('submit_customize', 'Submit Customized Product', 'id="submitCustomization" class="button"');?></li>
             <li><a id="clearCustomization" class="button" href="#restart">Restart</a></li>
+            <?php //Converts sample dom to canvas ?>
+            <li><?php echo form_button('convert_canvas', 'Convert Canvas', "id='convertToCanvas' class='button'");?></li>
+            <?php //Converts sample canvas to image ?>
+            <li><?php echo form_button('convert_img','Convert to Image', "id='convertToImage' class='button'");?></li>
             </ul>
             <?php echo form_hidden('product_no', $product_info[0]['product_no']);?>
         </div>
@@ -181,8 +185,14 @@ $(document).ready(function(){
                 product_size: selectedsize,
                 product_color: selectedcolor
              },
+             beforeSend:function(){
+                $("#customizationInput").hide();
+             },
              success: function(repsonseFormCustomer){
                 $("#customizationInput").html(repsonseFormCustomer);
+             },
+             complete: function(){
+                $("#customizationInput").slideDown(1500);
              }
         });
 

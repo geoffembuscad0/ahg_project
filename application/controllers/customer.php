@@ -225,7 +225,6 @@ class Customer extends CI_Controller {
                 $this->catalog->getProduct($current_customer['product_no']),
                 $this->catalog->getFeatures($current_customer['sp_features'])
         );
-//        debug_result($data['product_features']);
         $data['footer'] = $this->layout->footer();
         $this->load->view('catalog/submit_customization', $data);
     }

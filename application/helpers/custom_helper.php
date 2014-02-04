@@ -13,8 +13,8 @@ function js_files(){
     $js_files = array(
         'css/foundationFive/js/modernizr'
         ,'js/base64'
+        ,'js/html2canvas/build/html2canvas'
         ,'js/canvas2image'
-        ,'js/html2canvas/html2canvas'
         ,'js/jquery'
         ,'js/jquery-ui/js/jquery-ui-1.10.3.custom'
     );
