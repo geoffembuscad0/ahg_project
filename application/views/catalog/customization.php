@@ -42,10 +42,6 @@ var piecesFeatures = '';
             <ul class="inline-list">
             <li><?php echo form_button('submit_customize', 'Submit Customized Product', 'id="submitCustomization" class="button"');?></li>
             <li><a id="clearCustomization" class="button" href="#restart">Restart</a></li>
-            <?php //Converts sample dom to canvas ?>
-            <li><?php echo form_button('convert_canvas', 'Convert Canvas', "id='convertToCanvas' class='button'");?></li>
-            <?php //Converts sample canvas to image ?>
-            <li><?php echo form_button('convert_img','Convert to Image', "id='convertToImage' class='button'");?></li>
             </ul>
             <?php echo form_hidden('product_no', $product_info[0]['product_no']);?>
         </div>
@@ -77,15 +73,16 @@ var piecesFeatures = '';
         </div>
     </div>
     <div class="row">
-        <div class="large-6 columns">
-        <h3>Preview
-        </h3>
-        <div class="draggedItems" style="width:100%;height: 480px;">
-        <canvas id="theCob" width="480" height="480"></canvas>
+        <div class="large-12 columns">
+        <h3>Preview<?php echo form_button('convert_img','Convert to Image', "id='convertToImage' class='button' style='float:right;'");?></h3><?php //Converts sample canvas to image ?>
+        <div class="draggedItems" style="width:100%;height:486px; border-style: solid; border-width: 5px; border-color: #cccccc;">
+        <!-- Added border style for canvas -->
+        <canvas id="theCob" width="640" height="480"></canvas>
         </div>
         </div>
-        <?php //echo form_close(); ?>
-        <div class="large-6 columns">
+    </div>
+    <div class="row">
+        <div id="featuresGrid" class="large-12 columns">
             <div style="width:100%">
                 <h2>Features:</h2>
             </div>
@@ -102,9 +99,7 @@ var piecesFeatures = '';
             </span>
             </li>
             <script>
-                $(document).ready(function(){
-                    // gets value of embed core [IMPORTANTE] Logic Error
-                    
+                $(document).ready(function(){                    
                     $("#featureCore<?php echo $features['feature_no'];?>").hover(function(){
                     },function(){
                         piecesFeatures += $("#featureCore<?php echo $features['feature_no'];?> #feature<?php echo $features['feature_no'];?>").val() + "/";
@@ -138,7 +133,7 @@ $(document).ready(function(){
     function cob(color, size) {
         var canvas = document.getElementById("theCob");
         var context = canvas.getContext("2d");
-        var centerX = canvas.width/2;
+        var centerX = (canvas.width/2)+128;
         var centerY = canvas.height/2;
         var radius = size;
 
@@ -199,6 +194,12 @@ $(document).ready(function(){
     });
     $("#clearCustomization").on('click', function(){
         clearCanvas();
+    });
+    
+    $("#convertToImage").on('click', function(){
+//        $("#featuresGrid").hide();
+        FireShotAPI.savePage(false);
+        
     });
 });
 </script>

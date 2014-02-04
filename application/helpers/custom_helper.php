@@ -15,6 +15,7 @@ function js_files(){
         ,'js/base64'
         ,'js/html2canvas/build/html2canvas'
         ,'js/canvas2image'
+        ,'js/fsapi'
         ,'js/jquery'
         ,'js/jquery-ui/js/jquery-ui-1.10.3.custom'
     );

@@ -22,6 +22,10 @@ class Layout {
             }
         }
         
+        if(in_array("js/fsapi",$js)){
+            $html .= "<script>FireShotAPI.AutoInstall = true;</script>";
+        }
+        
         if($drawing_tool > 0){
             $html .= "<link rel='stylesheet' href='".site_url("assets/js/wPaint/lib/wColorPicker.min.css")."' type='text/css'/>\n";
             $html .= "<script src='".site_url("assets/js/wPaint/lib/wColorPicker.min.js")."'></script>\n";
@@ -39,7 +43,7 @@ class Layout {
             }
         }
         
-        $html .= "</head><body>";
+        $html .= "</head><body onLoad='FireShotAPI.checkAvailability()'>";
         
         return $html;
     }

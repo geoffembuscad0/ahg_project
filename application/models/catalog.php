@@ -65,7 +65,7 @@ class Catalog extends CI_Model {
     }
     public function saveOrder($input_datas = array(), $session_data = array()){
         
-        $this->db->query("INSERT INTO customer_orders values(null,'".$input_datas['id']."','".$input_datas['total_price']."',now(),0)");
+        $this->db->query("INSERT INTO customer_orders values(null,'".$input_datas['id']."','".$input_datas['total_price']."',now(),0,'".$input_datas['file_data']['file_name']."')");
         
         $select_last_record = $this->db->query("SELECT order_id FROM customer_orders ORDER BY order_id DESC LIMIT 1");
         $select_last_record_obj = $select_last_record->row();

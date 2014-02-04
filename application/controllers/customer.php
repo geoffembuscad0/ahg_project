@@ -231,7 +231,7 @@ class Customer extends CI_Controller {
     public function validateBuyConfirmation(){
         $errorMsg = null;
         $fetch_inputs = array();
-        
+
         if($this->input->post('idNo') != null){
             if(validate_id($this->input->post('idNo')) != null){
                 $fetch_inputs['id'] = $this->input->post('idNo');
@@ -246,46 +246,62 @@ class Customer extends CI_Controller {
             if(ctype_alpha(str_replace(' ', '', $this->input->post('firstname')))){
                 $fetch_inputs['firstname'] = $this->input->post('firstname');
             } else {
-                $errorMsg .= "<b>Firstname</b> should all be alphabetical letters (or with spaces). ";
+                $errorMsg .= "<b>Firstname</b> should all be alphabetical letters (or with spaces). </br>";
             }
         } else {
-            $errorMsg .= "<b>Firstname</b> should not be empty. ";
+            $errorMsg .= "<b>Firstname</b> should not be empty. </br>";
         }
         
         if($this->input->post('lastname')!=null){
             if(ctype_alpha(str_replace(' ', '', $this->input->post('lastname')))){
                 $fetch_inputs['lastname'] = $this->input->post('lastname');
             } else {
-                $errorMsg .= "<b>Lastname</b> should all be alphabetical letters (or with spaces). ";
+                $errorMsg .= "<b>Lastname</b> should all be alphabetical letters (or with spaces). </br>";
             }
         } else {
-            $errorMsg .= "<b>Lastname</b> should not be empty. ";
+            $errorMsg .= "<b>Lastname</b> should not be empty. </br>";
         }
         
         if($this->input->post('phone')!=null){
             if(ctype_digit($this->input->post('phone'))){
                 $fetch_inputs['phone'] = $this->input->post('phone');
             } else {
-                $errorMsg .= "<b>Contact Number</b> should only consist of numbers. ";
+                $errorMsg .= "<b>Contact Number</b> should only consist of numbers. </br>";
             }
         } else {
-            $errorMsg .= "<b>Contact Number</b> should not be empty. ";
+            $errorMsg .= "<b>Contact Number</b> should not be empty. </br>";
         }
         
         if($this->input->post('email')!=null){
             if(filter_var($this->input->post('email'), FILTER_VALIDATE_EMAIL)){
                 $fetch_inputs['email'] = $this->input->post('email');
             } else {
-                $errorMsg .= "Your <b>Contact Email</b> input is not a valid email. ";
+                $errorMsg .= "Your <b>Contact Email</b> input is not a valid email. </br>";
             }
         } else {
-            $errorMsg .= "<b>Contact Email</b> should not be empty. ";
+            $errorMsg .= "<b>Contact Email</b> should not be empty. </br>";
         }
         
         $fetch_inputs['features'] = $this->input->post('features');
-        $fetch_inputs['features'] = explode("|", $fetch_inputs['features']);
-        $fetch_inputs['total_price'] = $this->input->post('totalPrice');
+        $fetch_inputs['total_price'] = $this->input->post('total_price');
         
+        // DO Product upload image
+        $config = array();
+        $config['upload_path'] = './orders/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '1900';
+        $config['max_width']  = '1133';
+        $config['max_height']  = '760';
+        
+        $this->upload->initialize($config);
+//        if(!$this->upload->do_upload('product_image')){
+//            $error = array('error' => $this->upload->display_errors());
+//            $this->load->view('upload_form', $error);	
+//        } else {
+//            echo "File successfulyy uploaded";
+//        }
+        $fetch_inputs['file_data'] = $this->upload->data();
+        debug_result($fetch_inputs);
         if($errorMsg){
             error_message($errorMsg);
         } else {
@@ -293,5 +309,8 @@ class Customer extends CI_Controller {
             success_message("Nice! Your order was successfully submited and is now processing.");
         }
     }
-
+    public function action_order_file(){
+        // Test function
+        
+    }
 }
