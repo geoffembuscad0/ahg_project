@@ -231,7 +231,9 @@ class Customer extends CI_Controller {
     public function validateBuyConfirmation(){
         $errorMsg = null;
         $fetch_inputs = array();
-
+        
+        $fetch_inputs['product_no'] = $this->input->post('product_no');
+        
         if($this->input->post('idNo') != null){
             if(validate_id($this->input->post('idNo')) != null){
                 $fetch_inputs['id'] = $this->input->post('idNo');
@@ -290,27 +292,44 @@ class Customer extends CI_Controller {
         $config['upload_path'] = './orders/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '1900';
-        $config['max_width']  = '1133';
-        $config['max_height']  = '760';
+        $config['max_width']  = '1300';
+        $config['max_height']  = '1700';
         
         $this->upload->initialize($config);
+        $this->upload->do_upload('product_image');
 //        if(!$this->upload->do_upload('product_image')){
 //            $error = array('error' => $this->upload->display_errors());
-//            $this->load->view('upload_form', $error);	
+//            print_r($error);
 //        } else {
 //            echo "File successfulyy uploaded";
 //        }
         $fetch_inputs['file_data'] = $this->upload->data();
-        debug_result($fetch_inputs);
+
         if($errorMsg){
             error_message($errorMsg);
         } else {
             $this->catalog->saveOrder($fetch_inputs,$this->session->userdata('customer_curr'));
-            success_message("Nice! Your order was successfully submited and is now processing.");
+//            success_message("Nice! Your order was successfully submited and is now processing.");
+            $this->print_order_details($fetch_inputs, $this->session->userdata('customers_curr'));
         }
     }
-    public function action_order_file(){
-        // Test function
+    public function print_order_details($fetched_inputs = array(), $customer_curr = array()){
+//        $data = array();
+        $data['head'] = $this->layout->head("Order Details",  css_files());
+        $data['customer_id'] = $fetched_inputs['id'];
+        $data['customer_name'] = ucfirst($fetched_inputs['firstname']) . " " . ucfirst($fetched_inputs['lastname']);
+        $data['product'] = $this->catalog->getProduct($fetched_inputs['product_no']);
+        $data['features'] = $this->catalog->getFeatures($fetched_inputs['features']);
+        $data['product_image'] = $fetched_inputs['file_data']['file_name'];
+        $data['total_price'] = $data['product'][0]['price'];
+        foreach($data['features'] AS $feature){
+            $data['total_price'] += $feature[0]['feature_price'];
+        }
         
+        $data['total_price'] = number_format($data['total_price']);
+//        debug_result($data);
+        $html = $this->load->view('catalog/print_order_details', $data, true);
+        
+        pdf_create($html, "order_details");
     }
 }

@@ -56,7 +56,7 @@
             </div>-->
             <div class="messager">
             </div>
-            <?php echo form_hidden('product', '00001');?>
+            <?php echo form_hidden('product_no', $product_info[0]['product_no']);?>
             <input type="submit" name="continue" class="button" value="Order"/>or go back to <a style="color:red;" href="<?php echo site_url('customer/shop');?>">store</a>.
         </fieldset>
     </div>
